@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 import {reducer} from '../../reducers/index'
 import { useSelector, useDispatch } from "react-redux";
-
+import {store} from '../../store/index'
 // Задача для этого компонента:
 // Реализовать создание нового героя с введенными данными. Он должен попадать
 // в общее состояние и отображаться в списке + фильтроваться
@@ -13,11 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 // данных из фильтров
 
 const HeroesAddForm = () => {
-    const [heroesLockalState, setHeroesLockalState] = useState({
-        name: "",
-        description: "",
-        element: ""
-    });
+    
     const dispatch = useDispatch();
     const heroes = useSelector((state)=> state.heroes);
 
