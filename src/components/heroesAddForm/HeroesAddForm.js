@@ -13,23 +13,26 @@ import { useSelector, useDispatch } from "react-redux";
 // данных из фильтров
 
 const HeroesAddForm = () => {
-    const [heroesLockalState, setHeroesLockalState] = useState();
+    const [heroesLockalState, setHeroesLockalState] = useState({
+        name: "",
+        description: "",
+        element: ""
+    });
     const dispatch = useDispatch();
     const heroes = useSelector((state)=> state.heroes);
 
-    const addHeroes = (e)=> {
-        setHeroesLockalState({[e.target.name]: e.target.value})
+    const addHeroes = (e, title = [e.target.name])=> {
+        setHeroesLockalState({
+            [title]: e.target.value})
     }
     
-    
-
     return (
         <form className="border p-4 shadow-lg rounded">
             <div className="mb-3">
                 <label htmlFor="name" className="form-label fs-4">Имя нового героя</label>
                 <input 
                     onChange={addHeroes}
-                    // value={heroesLockalState.name}
+                    value={heroesLockalState.name}
                     required
                     type="text" 
                     name="name" 
@@ -41,6 +44,7 @@ const HeroesAddForm = () => {
             <div className="mb-3">
                 <label htmlFor="text" className="form-label fs-4">Описание</label>
                 <textarea
+                    onChange={(e)=> addHeroes(e, "distription")}
                     required
                     name="text" 
                     className="form-control" 
