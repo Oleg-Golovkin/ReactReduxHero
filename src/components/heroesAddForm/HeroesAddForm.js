@@ -1,4 +1,6 @@
-
+import { useState, useEffect } from "react";
+import {reducer} from '../../reducers/index'
+import { useSelector, useDispatch } from "react-redux";
 
 // Задача для этого компонента:
 // Реализовать создание нового героя с введенными данными. Он должен попадать
@@ -11,11 +13,23 @@
 // данных из фильтров
 
 const HeroesAddForm = () => {
+    const [heroesLockalState, setHeroesLockalState] = useState();
+    const dispatch = useDispatch();
+    const heroes = useSelector((state)=> state.heroes);
+
+    const addHeroes = (e)=> {
+        setHeroesLockalState({[e.target.name]: e.target.value})
+    }
+    
+    
+
     return (
         <form className="border p-4 shadow-lg rounded">
             <div className="mb-3">
                 <label htmlFor="name" className="form-label fs-4">Имя нового героя</label>
                 <input 
+                    onChange={addHeroes}
+                    // value={heroesLockalState.name}
                     required
                     type="text" 
                     name="name" 
