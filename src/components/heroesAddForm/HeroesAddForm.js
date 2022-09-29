@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
-import {reducer} from '../../reducers/index'
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {store} from '../../store/index'
+import {useHttp} from '../../hooks/http.hook';
+import { fitersFetched } from '../../actions';
+
 // Задача для этого компонента:
 // Реализовать создание нового героя с введенными данными. Он должен попадать
 // в общее состояние и отображаться в списке + фильтроваться
@@ -13,24 +14,38 @@ import {store} from '../../store/index'
 // данных из фильтров
 
 const HeroesAddForm = () => {
-    
-    // const dispatch = useDispatch();
-    // const heroes = useSelector((state)=> state.heroes);
+    // Добавление героя
     const [stateHeroes, setStateHeroes] = useState({
-        'name': '',
-        'distription': '',
-        'element': ''
-        
+        "name": "",
+        "distription": "",
+        "element": ""        
     })
     const addHeroes = (e, title = [e.target.name])=> {
         setStateHeroes({...stateHeroes, [title]: e.target.value})
-
     }
+    const {request} = useHttp();
+    const addHeroesServer = (e)=> {
+        e.preventDefault();
+        request("http://localhost:3001/heroes", "POST", JSON.stringify(stateHeroes))
+            .then(data=> console.log(data))
+    }
+
+
+    // Получение фильтров
+    const dispatch = useDispatch();
+    const getFilters = ()=> {
+        request("http://localhost:3001/filters")
+            .then(data=> dispatch(fitersFetched(data)))        
+    }
+    const filters = useSelector(state=> state.filters)
+    console.log(filters);
+
     
-    
-    
+
     return (
-        <form className="border p-4 shadow-lg rounded">
+        <form 
+        className="border p-4 shadow-lg rounded"
+        onSubmit={(e)=> {addHeroesServer(e)}}>
             <div className="mb-3">
                 <label htmlFor="name" className="form-label fs-4">Имя нового героя</label>
                 <input 
@@ -74,7 +89,11 @@ const HeroesAddForm = () => {
                 </select>
             </div>
 
-            <button type="submit" className="btn btn-primary">Создать</button>
+            <button 
+            type="submit" 
+            className="btn btn-primary">
+                Создать
+            </button>
         </form>
     )
 }

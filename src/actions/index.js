@@ -11,6 +11,13 @@ export const heroesFetched = (heroes) => {
     }
 }
 
+export const fitersFetched = (filter) => {
+    return {
+        type: 'FILTER_FETCHED',
+        filters: filter
+    }
+}
+
 export const heroesFetchingError = () => {
     return {
         type: 'HEROES_FETCHING_ERROR'
