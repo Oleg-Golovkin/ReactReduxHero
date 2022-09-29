@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {useHttp} from '../../hooks/http.hook';
-import { fitersFetched } from '../../actions';
+import { filterFetched } from '../../actions';
 
 // Задача для этого компонента:
 // Реализовать создание нового героя с введенными данными. Он должен попадать
@@ -35,12 +35,23 @@ const HeroesAddForm = () => {
     const dispatch = useDispatch();
     const getFilters = ()=> {
         request("http://localhost:3001/filters")
-            .then(data=> dispatch(fitersFetched(data)))        
+            .then(data=> dispatch(filterFetched(data)))        
     }
-    const filters = useSelector(state=> state.filters)
-    console.log(filters);
+    useEffect(()=>{
+        getFilters(); 
+    }, [])
 
-    
+    // Создание option
+    const options = useSelector(state=> {
+        return state.filters.map((item)=> {
+            return(
+                <option 
+                value={item}
+                key={item}>{item}</option> 
+            )
+        })
+        
+    })   
 
     return (
         <form 
@@ -81,11 +92,7 @@ const HeroesAddForm = () => {
                     className="form-select" 
                     id="element" 
                     name="element">
-                    <option >Я владею элементом...</option>
-                    <option value="fire">Огонь</option>
-                    <option value="water">Вода</option>
-                    <option value="wind">Ветер</option>
-                    <option value="earth">Земля</option>
+                    {options}
                 </select>
             </div>
 

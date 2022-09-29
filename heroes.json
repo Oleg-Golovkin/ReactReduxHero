@@ -19,41 +19,23 @@
       "element": "water"
     },
     {
-      "name": "сч",
-      "distription": "чс сч",
-      "element": "",
+      "name": "Головкин Олег Евгеньевич",
+      "distription": "Многое",
+      "element": "Ветер",
       "id": 4
     },
     {
-      "name": "мчсмчс",
-      "distription": " чсмчсм",
-      "element": "",
+      "name": "Головкин Олег Евгеньевич",
+      "distription": "Многое",
+      "element": "Ветер",
       "id": 5
-    },
-    {
-      "name": "авыа",
-      "distription": "ааываы",
-      "element": "",
-      "id": 6
-    },
-    {
-      "name": "мчсм",
-      "distription": "чсмсч",
-      "element": "",
-      "id": 7
-    },
-    {
-      "name": "мчм",
-      "distription": "всв",
-      "element": "water",
-      "id": 8
     }
   ],
   "filters": [
-    "all",
-    "fire",
-    "water",
-    "wind",
-    "earth"
+    "Все",
+    "Огонь",
+    "Вода",
+    "Ветер",
+    "Земля"
   ]
 }

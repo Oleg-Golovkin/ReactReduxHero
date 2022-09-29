@@ -11,7 +11,7 @@ export const heroesFetched = (heroes) => {
     }
 }
 
-export const fitersFetched = (filter) => {
+export const filterFetched = (filter) => {
     return {
         type: 'FILTER_FETCHED',
         filters: filter
