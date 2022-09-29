@@ -1,4 +1,4 @@
-// import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {reducer} from '../../reducers/index'
 import { useSelector, useDispatch } from "react-redux";
 import {store} from '../../store/index'
@@ -14,13 +14,20 @@ import {store} from '../../store/index'
 
 const HeroesAddForm = () => {
     
-    const dispatch = useDispatch();
-    const heroes = useSelector((state)=> state.heroes);
-
+    // const dispatch = useDispatch();
+    // const heroes = useSelector((state)=> state.heroes);
+    const [stateHeroes, setStateHeroes] = useState({
+        'name': '',
+        'distription': '',
+        'element': ''
+        
+    })
     const addHeroes = (e, title = [e.target.name])=> {
-        setHeroesLockalState({
-            [title]: e.target.value})
+        setStateHeroes({...stateHeroes, [title]: e.target.value})
+
     }
+    
+    
     
     return (
         <form className="border p-4 shadow-lg rounded">
@@ -28,7 +35,7 @@ const HeroesAddForm = () => {
                 <label htmlFor="name" className="form-label fs-4">Имя нового героя</label>
                 <input 
                     onChange={addHeroes}
-                    value={heroesLockalState.name}
+                    value={stateHeroes.name}
                     required
                     type="text" 
                     name="name" 
@@ -41,6 +48,7 @@ const HeroesAddForm = () => {
                 <label htmlFor="text" className="form-label fs-4">Описание</label>
                 <textarea
                     onChange={(e)=> addHeroes(e, "distription")}
+                    value={stateHeroes.distription}
                     required
                     name="text" 
                     className="form-control" 
@@ -52,6 +60,8 @@ const HeroesAddForm = () => {
             <div className="mb-3">
                 <label htmlFor="element" className="form-label">Выбрать элемент героя</label>
                 <select 
+                    onChange={addHeroes}
+                    value={stateHeroes.element}
                     required
                     className="form-select" 
                     id="element" 
