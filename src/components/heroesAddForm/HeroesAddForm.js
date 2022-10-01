@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {useHttp} from '../../hooks/http.hook';
 import { filterFetched } from '../../actions';
+import { object, string, number, date } from 'yup';
 
 // Задача для этого компонента:
 // Реализовать создание нового героя с введенными данными. Он должен попадать
@@ -20,12 +21,26 @@ const HeroesAddForm = () => {
         "distription": "",
         "element": ""        
     })
-    const addHeroes = (e, title = [e.target.name])=> {
-        setStateHeroes({...stateHeroes, [title]: e.target.value})
+
+    let schema = object({
+        name: number().required(),
+    });
+
+    
+    
+
+    const addHeroes = async (e, title = [e.target.name])=> {
+        await schema.isValid({ 
+                [title]: e.target.value,
+            })
+            .then(valid=> valid ? setStateHeroes({name: "dasdasd"}): null)
+        // setStateHeroes({...stateHeroes, [title]: e.target.value})
+    
     }
+
+    
     const {request} = useHttp();
     const addHeroesServer = (e)=> {
-        e.preventDefault();
         request("http://localhost:3001/heroes", "POST", JSON.stringify(stateHeroes))
             .then(data=> console.log(data))
     }
@@ -56,7 +71,7 @@ const HeroesAddForm = () => {
     return (
         <form 
         className="border p-4 shadow-lg rounded"
-        onSubmit={(e)=> {addHeroesServer(e)}}>
+        onSubmit={addHeroesServer}>
             <div className="mb-3">
                 <label htmlFor="name" className="form-label fs-4">Имя нового героя</label>
                 <input 

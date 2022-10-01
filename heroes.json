@@ -19,16 +19,22 @@
       "element": "water"
     },
     {
-      "name": "Головкин Олег Евгеньевич",
-      "distription": "Многое",
-      "element": "Ветер",
+      "name": "Алена ",
+      "distription": "da",
+      "element": "Огонь",
       "id": 4
     },
     {
-      "name": "Головкин Олег Евгеньевич",
-      "distription": "Многое",
-      "element": "Ветер",
+      "name": "FDSFSD",
+      "distription": "FSDAFSD",
+      "element": "",
       "id": 5
+    },
+    {
+      "name": "sssssd",
+      "distription": "dasdasd",
+      "element": "",
+      "id": 6
     }
   ],
   "filters": [
