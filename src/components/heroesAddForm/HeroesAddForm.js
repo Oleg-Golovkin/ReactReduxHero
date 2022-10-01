@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {useHttp} from '../../hooks/http.hook';
 import { filterFetched } from '../../actions';
-import { object, string, number, date } from 'yup';
-
+import * as Yup from 'yup';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 // Задача для этого компонента:
 // Реализовать создание нового героя с введенными данными. Он должен попадать
 // в общее состояние и отображаться в списке + фильтроваться
@@ -16,112 +16,131 @@ import { object, string, number, date } from 'yup';
 
 const HeroesAddForm = () => {
     // Добавление героя
-    const [stateHeroes, setStateHeroes] = useState({
-        "name": "",
-        "distription": "",
-        "element": ""        
-    })
-
-    let schema = object({
-        name: number().required(),
-        distription: number().required(),
-        element: number().required(),
-    });
-
-    
-   
-
-    const addHeroes = async (e, title)=> {
-        await schema.isValid({ 
-            [title]: e.target.value,
-            [title]: e.target.value,
-            [title]: e.target.value,  
-            })
-            .then(valid => valid ? setStateHeroes({...stateHeroes, [title]: e.target.value}) : console.log(valid))
-        }
-        // setStateHeroes({...stateHeroes, [title]: e.target.value})
-    
+//     const [stateHeroes, setStateHeroes] = useState({
+//         "name": "",
+//         "distription": "",
+//         "element": ""        
+//     })   
     
 
-    
-    const {request} = useHttp();
-    const addHeroesServer = (e)=> {
-        request("http://localhost:3001/heroes", "POST", JSON.stringify(stateHeroes))
-            .then(data=> console.log(data))
-    }
+//     let schema = yup.object().shape({
+//         name: yup.string().required(),
+//         distription: yup.number(),
+//         element: yup.number().required(),
+//     });  
+
+//     const addHeroes = (e, title)=> {
+//         setStateHeroes({...stateHeroes, [title]: e.target.value})
+// }   
+    const {request} = useHttp(); 
+    // const addHeroesServer = (e)=> {}
 
 
     // Получение фильтров
-    const dispatch = useDispatch();
-    const getFilters = ()=> {
-        request("http://localhost:3001/filters")
-            .then(data=> dispatch(filterFetched(data)))        
-    }
-    useEffect(()=>{
-        getFilters(); 
-    }, [])
+    // const dispatch = useDispatch();
+    // const getFilters = async ()=> {
+    //     await request("http://localhost:3001/filters")
+    //         .then(data=> dispatch(filterFetched(data)))        
+    // }
 
-    // Создание option
-    const options = useSelector(state=> {
-        return state.filters.map((item)=> {
-            return(
-                <option 
-                value={item}
-                key={item}>{item}</option> 
-            )
-        })
-        
-    })   
+    // useEffect(()=>{
+    //     getFilters(); 
+    // }, [])
+
+    // // Создание option
+    // const options = useSelector(state=> {
+    //     return state.filters.map((item)=> {
+    //         return(
+    //             <option 
+    //             value={item}
+    //             key={item}>{item}</option> 
+    //         )
+    //     })        
+    // })
+    // console.log(options);
 
     return (
-        <form 
-        className="border p-4 shadow-lg rounded"
-        onSubmit={addHeroesServer}>
-            <div className="mb-3">
-                <label htmlFor="name" className="form-label fs-4">Имя нового героя</label>
-                <input 
-                    onChange={(e)=> addHeroes(e, "name")}
-                    value={stateHeroes.name}
-                    required
-                    type="text" 
+        <Formik
+            initialValues = {{
+                "name": "",
+                "distription": "",
+                "element": ""   
+            }}        
+            validationSchema = {Yup.object({
+                name: Yup.string()
+                        .min(2, 'Минимум три символа')
+                        .required('Обязательное поле'),
+                distription: Yup.string()
+                        .email('Неверный формат email')
+                        .required('Обязательное поле'),
+                element: Yup.string()
+                })}
+            onSubmit = {async values => await request("http://localhost:3001/heroes", "POST", JSON.stringify(values, null, 2))
+                        .then(data=> console.log(data))}
+        >
+            <Form 
+                className="border p-4 shadow-lg rounded"
+            >
+                <div className="mb-3">
+                    <label htmlFor="name" className="form-label fs-4">Имя нового героя</label>
+                    <Field 
+                        required
+                        type="text" 
+                        name="name" 
+                        className="form-control" 
+                        id="name" 
+                        placeholder="Как меня зовут?"/>
+                    <ErrorMessage 
                     name="name" 
-                    className="form-control" 
-                    id="name" 
-                    placeholder="Как меня зовут?"/>
-            </div>
+                    component="div" 
+                    />  
+                </div>
 
-            <div className="mb-3">
-                <label htmlFor="text" className="form-label fs-4">Описание</label>
-                <textarea
-                    onChange={(e)=> addHeroes(e, "distription")}
-                    value={stateHeroes.distription}
-                    required
-                    name="text" 
-                    className="form-control" 
-                    id="text" 
-                    placeholder="Что я умею?"
-                    style={{"height": '130px'}}/>
-            </div>
+                <div className="mb-3">
+                    <label htmlFor="text" className="form-label fs-4">Описание</label>
+                    <Field 
+                        required
+                        type="text" 
+                        name="text" 
+                        className="form-control" 
+                        id="text" 
+                        placeholder="Что я умею?"
+                        style={{"height": '130px'}}/>
+                    <ErrorMessage 
+                        name="text" 
+                        component="div" 
+                        />
+                </div>
 
-            <div className="mb-3">
-                <label htmlFor="element" className="form-label">Выбрать элемент героя</label>
-                <select 
-                    onChange={addHeroes}
-                    value={stateHeroes.element}
+                <div className="mb-3">
+                    <label htmlFor="element" className="form-label">Выбрать элемент героя</label>
+                    <Field  
                     required
                     className="form-select" 
                     id="element" 
-                    name="element">
-                    {options}
-                </select>
-            </div>
+                    name="element"
+                    as="select">
+                        <option >Я владею элементом...</option>
+                        <option value="fire">Огонь</option>
+                        <option value="water">Вода</option>
+                        <option value="wind">Ветер</option>
+                        <option value="earth">Земля</option>        
+                    </Field>
+                    <ErrorMessage 
+                    name="element" 
+                    component="div" 
+                    />
+                </div>
 
-            <button 
-            type="submit" 
-            className="btn btn-primary">
-                Создать
-            </button>
-        </form>
+                <button 
+                type="submit"
+                name="submit"
+                id="submit"
+                className="btn btn-primary">
+                    Создать
+                </button>
+            </Form>
+        </Formik>
     )
 }
 
