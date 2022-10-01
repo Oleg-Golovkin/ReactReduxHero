@@ -27,16 +27,17 @@ const HeroesAddForm = () => {
     });
 
     
-    
+   
 
     const addHeroes = async (e, title = [e.target.name])=> {
         await schema.isValid({ 
                 [title]: e.target.value,
             })
-            .then(valid=> valid ? setStateHeroes({name: "dasdasd"}): null)
+            .then(valid => valid ? setStateHeroes({...stateHeroes, [title]: e.target.value}) : console.log(valid))
+        }
         // setStateHeroes({...stateHeroes, [title]: e.target.value})
     
-    }
+    
 
     
     const {request} = useHttp();
