@@ -24,14 +24,18 @@ const HeroesAddForm = () => {
 
     let schema = object({
         name: number().required(),
+        distription: number().required(),
+        element: number().required(),
     });
 
     
    
 
-    const addHeroes = async (e, title = [e.target.name])=> {
+    const addHeroes = async (e, title)=> {
         await schema.isValid({ 
-                [title]: e.target.value,
+            [title]: e.target.value,
+            [title]: e.target.value,
+            [title]: e.target.value,  
             })
             .then(valid => valid ? setStateHeroes({...stateHeroes, [title]: e.target.value}) : console.log(valid))
         }
@@ -76,7 +80,7 @@ const HeroesAddForm = () => {
             <div className="mb-3">
                 <label htmlFor="name" className="form-label fs-4">Имя нового героя</label>
                 <input 
-                    onChange={addHeroes}
+                    onChange={(e)=> addHeroes(e, "name")}
                     value={stateHeroes.name}
                     required
                     type="text" 
