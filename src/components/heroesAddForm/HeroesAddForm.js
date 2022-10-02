@@ -16,64 +16,81 @@ import * as yup from 'yup';
 // данных из фильтров
 
 const HeroesAddForm = () => {
-    // Добавление героя
+    // Создание состояния по умолчанию
     const [stateHeroes, setStateHeroes] = useState({
         "name": "",
         "distription": "",
         "element": ""        
     })
+     // Если где-то выскачит ошибка при валидации.
+    const [stateValidation, setStateValidation] = useState({validation: false})
+    // Cообщение о пройденной валидации
+    const [stateErrorMassege, setStateErrorMassege] = useState({ 
+        "name": null,
+        "distription": null,
+        "element": null
+    })
+    //  // Верстка сообщения об ошибке
+    const ErrorMessage = ({title})=> {
+        return (
+            <div style={{color: "red"}}>{stateErrorMassege[title]}</div>
+            )
+    };
 
-    yup.setLocale({        
-        string: {
-            max: "Максимум 10 символов",
-        },
-      });
-
-    let schema = yup.object().shape({
-        name: yup.string()
-            .max(10),
-        distription: yup.string()
-                    .max(10),
-        element: yup.number(),        
-    });
-
-    
-
-    
-
-
-
-    const addHeroes = async (e, title)=> {
-        let value = e. target.value
-        await schema.isValid({ 
-            [title]: e.target.value,
-            })
-            .then(valid => valid 
-                ? setStateHeroes({...stateHeroes, [title]: value})
-                : value.length == 0 ? setStateHeroes({...stateHeroes, [title]: value}) 
-                : console.log(yup.ValidationError.errors)
-                )
-            // .catch(err=> console.log(err))
-            
-            console.log();
-        }
-    
-
-        
-
-
-        // setStateHeroes({...stateHeroes, [title]: e.target.value})
-    
-    
-
-    
+   
+    // Изменение состояния для данных из input. 
+    const onAddHeroes = (value) => setStateHeroes({...stateHeroes, ...value})
+    // Отправка данных после валидации на сервер
     const {request} = useHttp();
-    const addHeroesServer = (e)=> {
-        request("http://localhost:3001/heroes", "POST", JSON.stringify(stateHeroes))
-            .then(data=> console.log(data))
+    const addHeroesServer = ()=> {
+            request("http://localhost:3001/heroes", "POST", JSON.stringify(stateHeroes))
+            .then(data=> console.log(data))    
     }
 
+    // Валидация с библиотекой yup
+    // При вводе
+    let schemaOnChange = yup.object().shape({
+        name: yup.string(),
+        distription: yup.string(),
+        element: yup.string(),        
+    });
+    const onValidateChange = async (e, title)=> {
+        await schemaOnChange.validate({ 
+            [title]: e.target.value,
+            })
+            .then(value => {
+                onAddHeroes(value);
+                setStateValidation({validation: true})
+                setStateErrorMassege({...stateErrorMassege, [title] : null}) 
+            })
+            .catch(err=> {                
+                setStateValidation({validation: false})
+                let errors = String(...err.errors) 
+                setStateErrorMassege({...stateErrorMassege, [title] : errors})
+            })        
+        }
 
+    // При смене фокуса
+    let schemaOnBlur = yup.object().shape({
+        name: yup.string().max(30, "Максимум 30 символов").matches(/^[а-яё -]+$/i, "Введите кириллицей"),
+        distription: yup.string().max(30, "Максимум 30 символов").matches(/^[а-яё -]+$/i, "Введите кириллицей"),
+    });  
+    const onValidateBlur = async (e, title)=>{
+        await schemaOnBlur.validate({ 
+            [title]: e.target.value,
+            })
+            .then(value => {
+                onAddHeroes(value);
+                setStateValidation({validation: true})
+                setStateErrorMassege({...stateErrorMassege, [title] : null}) 
+            })
+            .catch(err=> {                
+                setStateValidation({validation: false})    
+                let errors = String(...err.errors) 
+                setStateErrorMassege({...stateErrorMassege, [title] : errors})
+            })
+        }
+    
     // Получение фильтров
     const dispatch = useDispatch();
     const getFilters = ()=> {
@@ -81,7 +98,8 @@ const HeroesAddForm = () => {
             .then(data=> dispatch(filterFetched(data)))        
     }
     useEffect(()=>{
-        getFilters(); 
+        getFilters();
+ // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     // Создание option
@@ -92,10 +110,8 @@ const HeroesAddForm = () => {
                 value={item}
                 key={item}>{item}</option> 
             )
-        })
-        
+        })        
     })   
-
     return (
         <form 
         className="border p-4 shadow-lg rounded"
@@ -103,35 +119,41 @@ const HeroesAddForm = () => {
             <div className="mb-3">
                 <label htmlFor="name" className="form-label fs-4">Имя нового героя</label>
                 <input 
-                    onChange={(e)=> addHeroes(e, "name")}
+                    onChange={(e)=> onValidateChange(e, "name")}
+                    onBlur={(e)=> onValidateBlur(e, "name")}
                     value={stateHeroes.name}
-                    
+                    required
                     type="text" 
                     name="name" 
                     className="form-control" 
                     id="name" 
                     placeholder="Как меня зовут?"/>
+                <ErrorMessage title= {"name"}/>
             </div>
 
             <div className="mb-3">
                 <label htmlFor="text" className="form-label fs-4">Описание</label>
                 <textarea
-                    onChange={(e)=> addHeroes(e, "distription")}
+                    onChange={(e)=> onValidateChange(e, "distription")}
+                    onBlur={(e)=> onValidateBlur(e, "distription")}
                     value={stateHeroes.distription}
-                    
+                    required
                     name="text" 
                     className="form-control" 
                     id="text" 
                     placeholder="Что я умею?"
                     style={{"height": '130px'}}/>
+                <ErrorMessage title= {"distription"}/>
+
             </div>
 
             <div className="mb-3">
                 <label htmlFor="element" className="form-label">Выбрать элемент героя</label>
                 <select 
-                    onChange={addHeroes}
+                    onChange={(e)=> onValidateChange(e, "element")}
+                    onBlur={(e)=> onValidateBlur(e, "element")}
                     value={stateHeroes.element}
-                    
+                    required
                     className="form-select" 
                     id="element" 
                     name="element">
@@ -141,8 +163,9 @@ const HeroesAddForm = () => {
 
             <button 
             type="submit" 
+            disabled = {!stateValidation.validation}
             className="btn btn-primary">
-                Создать
+                Создать 
             </button>
         </form>
     )

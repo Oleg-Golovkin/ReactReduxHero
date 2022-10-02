@@ -19,40 +19,28 @@
       "element": "water"
     },
     {
-      "name": "Алена ",
-      "distription": "da",
-      "element": "Огонь",
+      "name": "Головкин Олег Евгеньевич",
+      "distription": "Вода",
+      "element": "",
       "id": 4
     },
     {
-      "name": "FDSFSD",
-      "distription": "FSDAFSD",
-      "element": "",
+      "name": "Головкин",
+      "distription": "Олег",
+      "element": "Вода",
       "id": 5
     },
     {
-      "name": "sssssd",
-      "distription": "dasdasd",
-      "element": "",
+      "name": "dadssad",
+      "distription": "Головкни",
+      "element": "Огонь",
       "id": 6
     },
     {
-      "name": "",
-      "distription": "",
-      "element": "",
+      "name": "вывыв",
+      "distription": "dsdasd",
+      "element": "Вода",
       "id": 7
-    },
-    {
-      "name": "",
-      "distription": "",
-      "element": "",
-      "id": 8
-    },
-    {
-      "name": "",
-      "distription": "",
-      "element": "",
-      "id": 9
     }
   ],
   "filters": [
