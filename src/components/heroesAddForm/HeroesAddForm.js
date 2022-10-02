@@ -33,7 +33,25 @@ const HeroesAddForm = () => {
         return (
             <div style={{color: "red"}}>{stateErrorMessage[title]}</div>
             )
-    }; 
+    };
+
+    const onSubmitAllValidate = () => {
+        // return (stateErrorMessage.name 
+        //     || stateErrorMessage.distription
+        //     || stateErrorMessage.element) == false 
+        //     ? true
+        //     : (stateErrorMessage.name 
+        //     || stateErrorMessage.distription
+        //     || stateErrorMessage.element) == ""
+        //     ? true
+        //     : false    
+        console.log((stateErrorMessage.name || stateErrorMessage.distription) == "")  
+        // console.log( 
+        //          stateErrorMessage.distription
+        //         );   
+        // console.log(
+        //         stateErrorMessage.element);   
+    }
 
     // Изменение состояния для данных из input. 
     const onAddHeroes = (value) => setStateHeroes({...stateHeroes, ...value})
@@ -83,6 +101,7 @@ const HeroesAddForm = () => {
                 let errors = String(...err.errors) 
                 setStateErrorMessage({...stateErrorMessage, [title] : errors})
             })
+            console.log(onSubmitAllValidate());
         }
     
 
