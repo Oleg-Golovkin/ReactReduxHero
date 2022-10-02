@@ -22,22 +22,19 @@ const HeroesAddForm = () => {
         "distription": "",
         "element": ""        
     })
-     // Если где-то выскачит ошибка при валидации.
-    const [stateValidation, setStateValidation] = useState({validation: false})
     // Cообщение о пройденной валидации
-    const [stateErrorMassege, setStateErrorMassege] = useState({ 
-        "name": null,
-        "distription": null,
-        "element": null
-    })
+    const [stateErrorMessage, setStateErrorMessage] = useState({ 
+        "name": false,
+        "distription": false,
+        "element": false
+    })    
     //  // Верстка сообщения об ошибке
     const ErrorMessage = ({title})=> {
         return (
-            <div style={{color: "red"}}>{stateErrorMassege[title]}</div>
+            <div style={{color: "red"}}>{stateErrorMessage[title]}</div>
             )
-    };
+    }; 
 
-   
     // Изменение состояния для данных из input. 
     const onAddHeroes = (value) => setStateHeroes({...stateHeroes, ...value})
     // Отправка данных после валидации на сервер
@@ -60,14 +57,12 @@ const HeroesAddForm = () => {
             })
             .then(value => {
                 onAddHeroes(value);
-                setStateValidation({validation: true})
-                setStateErrorMassege({...stateErrorMassege, [title] : null}) 
+                setStateErrorMessage({...stateErrorMessage, [title] : true}) 
             })
             .catch(err=> {                
-                setStateValidation({validation: false})
                 let errors = String(...err.errors) 
-                setStateErrorMassege({...stateErrorMassege, [title] : errors})
-            })        
+                setStateErrorMessage({...stateErrorMessage, [title] : errors})
+            })
         }
 
     // При смене фокуса
@@ -81,15 +76,16 @@ const HeroesAddForm = () => {
             })
             .then(value => {
                 onAddHeroes(value);
-                setStateValidation({validation: true})
-                setStateErrorMassege({...stateErrorMassege, [title] : null}) 
+                setStateErrorMessage({...stateErrorMessage, [title] : true}) 
+                
             })
             .catch(err=> {                
-                setStateValidation({validation: false})    
                 let errors = String(...err.errors) 
-                setStateErrorMassege({...stateErrorMassege, [title] : errors})
+                setStateErrorMessage({...stateErrorMessage, [title] : errors})
             })
         }
+    
+
     
     // Получение фильтров
     const dispatch = useDispatch();
@@ -102,6 +98,7 @@ const HeroesAddForm = () => {
  // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    
     // Создание option
     const options = useSelector(state=> {
         return state.filters.map((item)=> {
@@ -163,7 +160,7 @@ const HeroesAddForm = () => {
 
             <button 
             type="submit" 
-            disabled = {!stateValidation.validation}
+            // disabled = {}
             className="btn btn-primary">
                 Создать 
             </button>
