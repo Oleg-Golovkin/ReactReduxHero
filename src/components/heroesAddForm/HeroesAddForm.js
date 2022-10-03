@@ -24,9 +24,9 @@ const HeroesAddForm = () => {
     })
     // Cообщение о пройденной валидации
     const [stateErrorMessage, setStateErrorMessage] = useState({ 
-        "name": false,
-        "distription": false,
-        "element": false
+        "name": true,
+        "distription": true,
+        "element": true
     })    
     //  // Верстка сообщения об ошибке
     const ErrorMessage = ({title})=> {
@@ -36,21 +36,12 @@ const HeroesAddForm = () => {
     };
 
     const onSubmitAllValidate = () => {
-        // return (stateErrorMessage.name 
-        //     || stateErrorMessage.distription
-        //     || stateErrorMessage.element) == false 
-        //     ? true
-        //     : (stateErrorMessage.name 
-        //     || stateErrorMessage.distription
-        //     || stateErrorMessage.element) == ""
-        //     ? true
-        //     : false    
-        console.log((stateErrorMessage.name || stateErrorMessage.distription) == "")  
-        // console.log( 
-        //          stateErrorMessage.distription
-        //         );   
-        // console.log(
-        //         stateErrorMessage.element);   
+        return (stateErrorMessage.name 
+            || stateErrorMessage.distription
+            || stateErrorMessage.element) == false
+            ? false
+            : true
+        
     }
 
     // Изменение состояния для данных из input. 
@@ -75,7 +66,7 @@ const HeroesAddForm = () => {
             })
             .then(value => {
                 onAddHeroes(value);
-                setStateErrorMessage({...stateErrorMessage, [title] : true}) 
+                setStateErrorMessage({...stateErrorMessage, [title] : false}) 
             })
             .catch(err=> {                
                 let errors = String(...err.errors) 
@@ -94,7 +85,7 @@ const HeroesAddForm = () => {
             })
             .then(value => {
                 onAddHeroes(value);
-                setStateErrorMessage({...stateErrorMessage, [title] : true}) 
+                setStateErrorMessage({...stateErrorMessage, [title] : false}) 
                 
             })
             .catch(err=> {                
@@ -179,7 +170,7 @@ const HeroesAddForm = () => {
 
             <button 
             type="submit" 
-            // disabled = {}
+            disabled = {onSubmitAllValidate()}
             className="btn btn-primary">
                 Создать 
             </button>
