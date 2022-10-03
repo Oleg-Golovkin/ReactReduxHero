@@ -5,16 +5,6 @@ import { filterFetched } from '../../actions';
 import * as yup from 'yup';
 
 
-// Задача для этого компонента:
-// Реализовать создание нового героя с введенными данными. Он должен попадать
-// в общее состояние и отображаться в списке + фильтроваться
-// Уникальный идентификатор персонажа можно сгенерировать через uiid
-// Усложненная задача:
-// Персонаж создается и в файле json при помощи метода POST
-// Дополнительно:
-// Элементы <option></option> желательно сформировать на базе
-// данных из фильтров
-
 const HeroesAddForm = () => {
     // Создание состояния по умолчанию
     const [stateHeroes, setStateHeroes] = useState({
@@ -22,7 +12,10 @@ const HeroesAddForm = () => {
         "distription": "",
         "element": ""        
     })
-    // Cообщение о пройденной валидации
+    // Cообщение о пройденной валидации. Это же состояние использую
+    // для проверки наличия ошибок во всех инпутах сразу, чтобы активировать
+    // кнопку отправки данных. Если сделать одно свойство для всех input , то 
+    // это свойство будет перезаписываться, а нужна исторя валидации каждого input
     const [stateErrorMessage, setStateErrorMessage] = useState({ 
         "name": true,
         "distription": true,
@@ -35,13 +28,14 @@ const HeroesAddForm = () => {
             )
     };
 
+    
     const onSubmitAllValidate = () => {
         return (stateErrorMessage.name 
             || stateErrorMessage.distription
-            || stateErrorMessage.element) == false
+            || stateErrorMessage.element) === false
             ? false
-            : true
-        
+            : true 
+                   
     }
 
     // Изменение состояния для данных из input. 
@@ -54,21 +48,31 @@ const HeroesAddForm = () => {
     }
 
     // Валидация с библиотекой yup
-    // При вводе
+    // При вводе. Это событие также использую для наполнения
+    // состояния
     let schemaOnChange = yup.object().shape({
         name: yup.string(),
         distription: yup.string(),
         element: yup.string(),        
     });
     const onValidateChange = async (e, title)=> {
-        await schemaOnChange.validate({ 
+        await schemaOnChange.validate({
+            // Чтобы не переписывать схему валидации, использую
+            // имя инпута
             [title]: e.target.value,
             })
+            // При пройденной валидации. Возврат объекта с инф. из инпута
             .then(value => {
+                // Наполнение состояния.
                 onAddHeroes(value);
+                // Записываю отсутствие ошибки. Создаю такой же объек. Только 
+                // наполняю его инф. об ошибках. Т.е. для каждого инпута свое
+                // свойство об ошибке. Чтобы можно было проверить наличие ошибки 
+                // в каждом инпуте
                 setStateErrorMessage({...stateErrorMessage, [title] : false}) 
             })
-            .catch(err=> {                
+            .catch(err=> {    
+                // Библиотека yup дает сведения об ошибке в массиве. Потому его и извлекаю            
                 let errors = String(...err.errors) 
                 setStateErrorMessage({...stateErrorMessage, [title] : errors})
             })
@@ -84,6 +88,7 @@ const HeroesAddForm = () => {
             [title]: e.target.value,
             })
             .then(value => {
+                // Наполнение состояния
                 onAddHeroes(value);
                 setStateErrorMessage({...stateErrorMessage, [title] : false}) 
                 
