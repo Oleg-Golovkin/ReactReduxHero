@@ -30,12 +30,12 @@ const HeroesAddForm = () => {
 
     
     const onSubmitAllValidate = () => {
-        return (stateErrorMessage.name 
-            || stateErrorMessage.distription
-            || stateErrorMessage.element) === false
-            ? false
-            : true 
-                   
+        // return (stateErrorMessage.name 
+        //     && stateErrorMessage.distription
+        //     && stateErrorMessage.element) === 1
+        //     ? false
+        //     : true
+        // console.log(stateErrorMessage.element);
     }
 
     // Изменение состояния для данных из input. 
@@ -69,13 +69,15 @@ const HeroesAddForm = () => {
                 // наполняю его инф. об ошибках. Т.е. для каждого инпута свое
                 // свойство об ошибке. Чтобы можно было проверить наличие ошибки 
                 // в каждом инпуте
-                setStateErrorMessage({...stateErrorMessage, [title] : false}) 
+                setStateErrorMessage({...stateErrorMessage, [title] : 1}) 
             })
             .catch(err=> {    
                 // Библиотека yup дает сведения об ошибке в массиве. Потому его и извлекаю            
                 let errors = String(...err.errors) 
                 setStateErrorMessage({...stateErrorMessage, [title] : errors})
             })
+            console.log(onSubmitAllValidate());
+
         }
 
     // При смене фокуса
@@ -90,7 +92,7 @@ const HeroesAddForm = () => {
             .then(value => {
                 // Наполнение состояния
                 onAddHeroes(value);
-                setStateErrorMessage({...stateErrorMessage, [title] : false}) 
+                setStateErrorMessage({...stateErrorMessage, [title] : 1}) 
                 
             })
             .catch(err=> {                
@@ -98,6 +100,7 @@ const HeroesAddForm = () => {
                 setStateErrorMessage({...stateErrorMessage, [title] : errors})
             })
             console.log(onSubmitAllValidate());
+
         }
     
 
@@ -134,7 +137,7 @@ const HeroesAddForm = () => {
                     onChange={(e)=> onValidateChange(e, "name")}
                     onBlur={(e)=> onValidateBlur(e, "name")}
                     value={stateHeroes.name}
-                    required
+                    
                     type="text" 
                     name="name" 
                     className="form-control" 
@@ -149,7 +152,7 @@ const HeroesAddForm = () => {
                     onChange={(e)=> onValidateChange(e, "distription")}
                     onBlur={(e)=> onValidateBlur(e, "distription")}
                     value={stateHeroes.distription}
-                    required
+                    
                     name="text" 
                     className="form-control" 
                     id="text" 
@@ -165,7 +168,7 @@ const HeroesAddForm = () => {
                     onChange={(e)=> onValidateChange(e, "element")}
                     onBlur={(e)=> onValidateBlur(e, "element")}
                     value={stateHeroes.element}
-                    required
+                    
                     className="form-select" 
                     id="element" 
                     name="element">
