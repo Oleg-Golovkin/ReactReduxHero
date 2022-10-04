@@ -30,12 +30,11 @@ const HeroesAddForm = () => {
 
     
     const onSubmitAllValidate = () => {
-        // return (stateErrorMessage.name 
-        //     && stateErrorMessage.distription
-        //     && stateErrorMessage.element) === 1
-        //     ? false
-        //     : true
-        // console.log(stateErrorMessage.element);
+        return (stateErrorMessage.name 
+            || stateErrorMessage.distription
+            || stateErrorMessage.element) === false
+            ? false
+            : true
     }
 
     // Изменение состояния для данных из input. 
@@ -69,7 +68,7 @@ const HeroesAddForm = () => {
                 // наполняю его инф. об ошибках. Т.е. для каждого инпута свое
                 // свойство об ошибке. Чтобы можно было проверить наличие ошибки 
                 // в каждом инпуте
-                setStateErrorMessage({...stateErrorMessage, [title] : 1}) 
+                setStateErrorMessage({...stateErrorMessage, [title] : false}) 
             })
             .catch(err=> {    
                 // Библиотека yup дает сведения об ошибке в массиве. Потому его и извлекаю            
@@ -92,7 +91,7 @@ const HeroesAddForm = () => {
             .then(value => {
                 // Наполнение состояния
                 onAddHeroes(value);
-                setStateErrorMessage({...stateErrorMessage, [title] : 1}) 
+                setStateErrorMessage({...stateErrorMessage, [title] : false}) 
                 
             })
             .catch(err=> {                
@@ -100,8 +99,8 @@ const HeroesAddForm = () => {
                 setStateErrorMessage({...stateErrorMessage, [title] : errors})
             })
             console.log(onSubmitAllValidate());
-
         }
+    console.log(onSubmitAllValidate());
     
 
     
