@@ -20,7 +20,9 @@ const HeroesAddForm = () => {
         "name": true,
         "distription": true,
         "element": true
-    })    
+    })  
+    
+    const [stateValidate, setStateValidate] = useState(true)
     //  // Верстка сообщения об ошибке
     const ErrorMessage = ({title})=> {
         return (
@@ -33,9 +35,10 @@ const HeroesAddForm = () => {
         return (stateErrorMessage.name 
             || stateErrorMessage.distription
             || stateErrorMessage.element) === false
-            ? false
-            : true
+            ? setStateValidate(false)
+            : setStateValidate(true)
     }
+    // console.log(false && false && true && false === false);
 
     // Изменение состояния для данных из input. 
     const onAddHeroes = (value) => setStateHeroes({...stateHeroes, ...value})
@@ -98,9 +101,7 @@ const HeroesAddForm = () => {
                 let errors = String(...err.errors) 
                 setStateErrorMessage({...stateErrorMessage, [title] : errors})
             })
-            console.log(onSubmitAllValidate());
         }
-    console.log(onSubmitAllValidate());
     
 
     
@@ -114,6 +115,10 @@ const HeroesAddForm = () => {
         getFilters();
  // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+    useEffect(()=>{
+        onSubmitAllValidate()
+ // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [stateErrorMessage])
 
     
     // Создание option
@@ -177,7 +182,7 @@ const HeroesAddForm = () => {
 
             <button 
             type="submit" 
-            disabled = {onSubmitAllValidate()}
+            disabled = {stateValidate}
             className="btn btn-primary">
                 Создать 
             </button>
