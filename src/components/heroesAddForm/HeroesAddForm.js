@@ -53,11 +53,9 @@ const HeroesAddForm = () => {
     let schemaOnChange = yup.object().shape({
         name: yup.string(),
         distription: yup.string(),
-        element: yup.string().matches(/(Все)/, "Выберите элемент героя")
+        element: yup.string().matches(/(Огонь|Вода|Ветер|Земля)/g, "Выберите элемент героя")
     });
     const onValidateChange = async (e, title)=> {
-        console.log(e.target.value);
-
         await schemaOnChange.validate({
             // Чтобы не переписывать схему валидации, использую
             // имя инпута
@@ -84,7 +82,7 @@ const HeroesAddForm = () => {
     let schemaOnBlur = yup.object().shape({
         name: yup.string().max(30, "Максимум 30 символов").matches(/^[а-яё -]+$/i, "Введите кириллицей"),
         distription: yup.string().max(30, "Максимум 30 символов").matches(/^[а-яё -]+$/i, "Введите кириллицей"),
-        element: yup.string().matches(/(^Все)/, "Выберите элемент героя")
+        element: yup.string().matches(/(Огонь|Вода|Ветер|Земля)/g, "Выберите элемент героя")
     });  
     const onValidateBlur = async (e, title)=>{
         await schemaOnBlur.validate({ 
@@ -96,8 +94,8 @@ const HeroesAddForm = () => {
                 setStateErrorMessage({...stateErrorMessage, [title] : false}) 
                 
             })
-            .catch(err=> {                
-                let errors = String(...err.errors) 
+            .catch(err=> {
+                let errors = String(...err.errors)
                 setStateErrorMessage({...stateErrorMessage, [title] : errors})
             })
             console.log(e.target.value);
