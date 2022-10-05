@@ -22,7 +22,6 @@ const HeroesAddForm = () => {
         "element": true
     })  
     
-    const [stateValidate, setStateValidate] = useState(true)
     //  // Верстка сообщения об ошибке
     const ErrorMessage = ({title})=> {
         return (
@@ -30,15 +29,14 @@ const HeroesAddForm = () => {
             )
     };
 
-    
+    // Если все input прошли валидацию, то кнопка включается
     const onSubmitAllValidate = () => {
-        return (stateErrorMessage.name 
-            || stateErrorMessage.distription
-            || stateErrorMessage.element) === false
-            ? setStateValidate(false)
-            : setStateValidate(true)
+        return stateErrorMessage.name === false 
+            && stateErrorMessage.distription === false
+            && stateErrorMessage.element === false
+            ? false
+            : true
     }
-    console.log((false || false || false || true) === false);
 
     // Изменение состояния для данных из input. 
     const onAddHeroes = (value) => setStateHeroes({...stateHeroes, ...value})
@@ -55,9 +53,11 @@ const HeroesAddForm = () => {
     let schemaOnChange = yup.object().shape({
         name: yup.string(),
         distription: yup.string(),
-        element: yup.string(),        
+        element: yup.string().matches(/(Все)/, "Выберите элемент героя")
     });
     const onValidateChange = async (e, title)=> {
+        console.log(e.target.value);
+
         await schemaOnChange.validate({
             // Чтобы не переписывать схему валидации, использую
             // имя инпута
@@ -78,14 +78,13 @@ const HeroesAddForm = () => {
                 let errors = String(...err.errors) 
                 setStateErrorMessage({...stateErrorMessage, [title] : errors})
             })
-            console.log(onSubmitAllValidate());
-
         }
 
     // При смене фокуса
     let schemaOnBlur = yup.object().shape({
         name: yup.string().max(30, "Максимум 30 символов").matches(/^[а-яё -]+$/i, "Введите кириллицей"),
         distription: yup.string().max(30, "Максимум 30 символов").matches(/^[а-яё -]+$/i, "Введите кириллицей"),
+        element: yup.string().matches(/(^Все)/, "Выберите элемент героя")
     });  
     const onValidateBlur = async (e, title)=>{
         await schemaOnBlur.validate({ 
@@ -101,6 +100,7 @@ const HeroesAddForm = () => {
                 let errors = String(...err.errors) 
                 setStateErrorMessage({...stateErrorMessage, [title] : errors})
             })
+            console.log(e.target.value);
         }
     
 
@@ -172,17 +172,17 @@ const HeroesAddForm = () => {
                     onChange={(e)=> onValidateChange(e, "element")}
                     onBlur={(e)=> onValidateBlur(e, "element")}
                     value={stateHeroes.element}
-                    
                     className="form-select" 
                     id="element" 
                     name="element">
                     {options}
                 </select>
+                <ErrorMessage title= {"element"}/>
             </div>
 
             <button 
             type="submit" 
-            disabled = {stateValidate}
+            disabled = {onSubmitAllValidate()}
             className="btn btn-primary">
                 Создать 
             </button>

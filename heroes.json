@@ -53,6 +53,12 @@
       "distription": "вфыв",
       "element": "Вода",
       "id": 9
+    },
+    {
+      "name": "аыва",
+      "distription": "мчмчс",
+      "element": "Все",
+      "id": 10
     }
   ],
   "filters": [
