@@ -38,7 +38,7 @@ const HeroesAddForm = () => {
             ? setStateValidate(false)
             : setStateValidate(true)
     }
-    // console.log(false && false && true && false === false);
+    console.log((false || false || false || true) === false);
 
     // Изменение состояния для данных из input. 
     const onAddHeroes = (value) => setStateHeroes({...stateHeroes, ...value})
