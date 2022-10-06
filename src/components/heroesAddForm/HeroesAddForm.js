@@ -53,7 +53,7 @@ const HeroesAddForm = () => {
     let schemaOnChange = yup.object().shape({
         name: yup.string(),
         distription: yup.string(),
-        element: yup.string().matches(/(Огонь|Вода|Ветер|Земля)/g, "Выберите элемент героя")
+        element: yup.string()
     });
     const onValidateChange = async (e, title)=> {
         await schemaOnChange.validate({
@@ -100,7 +100,6 @@ const HeroesAddForm = () => {
             })
             console.log(e.target.value);
         }
-    
 
     
     // Получение фильтров
@@ -113,10 +112,6 @@ const HeroesAddForm = () => {
         getFilters();
  // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    useEffect(()=>{
-        onSubmitAllValidate()
- // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [stateErrorMessage])
 
     
     // Создание option
