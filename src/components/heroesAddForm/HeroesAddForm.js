@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import {useState } from "react";
+import { useSelector} from "react-redux";
 import {useHttp} from '../../hooks/http.hook';
-import { filterFetched } from '../../actions';
 import * as yup from 'yup';
+import { v4 as uuidv4 } from 'uuid';
 
 
 const HeroesAddForm = () => {
@@ -100,30 +100,17 @@ const HeroesAddForm = () => {
             })
             console.log(e.target.value);
         }
-
-    
-    // Получение фильтров
-    const dispatch = useDispatch();
-    const getFilters = ()=> {
-        request("http://localhost:3001/filters")
-            .then(data=> dispatch(filterFetched(data)))        
-    }
-    useEffect(()=>{
-        getFilters();
- // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-    
+            
     // Создание option
     const filters = useSelector(state=> {
         return state.filters.map((item)=> {
             return(
                 <option 
-                value={item}
-                key={item}>{item}</option> 
+                value={item.name}
+                key={uuidv4()}>{item.name}</option> 
             )
         })        
-    })   
+    })  
     return (
         <form 
         className="border p-4 shadow-lg rounded"

@@ -14,7 +14,13 @@ export const heroesFetched = (heroes) => {
 export const filterFetched = (filter) => {
     return {
         type: 'FILTER_FETCHED',
-        filters: filter
+        payload: filter
+    }
+}
+export const filteredHeroesFetched = (filteredHeroes) => {
+    return {
+        type: 'FILTERED_HEROES_FETCHED',
+        payload: filteredHeroes
     }
 }
 
@@ -23,3 +29,10 @@ export const heroesFetchingError = () => {
         type: 'HEROES_FETCHING_ERROR'
     }
 }
+export const onActiveBTN = (name) => {
+    return {
+        type: 'ONACTIVE_BTN',
+        payload: name
+    }
+}
+

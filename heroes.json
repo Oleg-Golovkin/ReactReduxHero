@@ -4,86 +4,54 @@
       "id": 1,
       "name": "Первый герой",
       "description": "Первый герой в рейтинге!",
-      "element": "fire"
+      "element": "Огонь"
     },
     {
       "id": 2,
       "name": "Неизвестный герой",
       "description": "Скрывающийся в тени",
-      "element": "wind"
+      "element": "Ветер"
     },
     {
       "id": 3,
       "name": "Морской герой",
       "description": "Как аквамен, но не из DC",
-      "element": "water"
+      "element": "Вода"
     },
     {
-      "name": "Головкин Олег Евгеньевич",
-      "distription": "Вода",
-      "element": "",
+      "name": "Олег",
+      "distription": "Все",
+      "element": "Огонь",
       "id": 4
     },
     {
-      "name": "Головкин",
-      "distription": "Олег",
-      "element": "Вода",
-      "id": 5
-    },
-    {
-      "name": "dadssad",
-      "distription": "Головкни",
+      "name": "Алена",
+      "distription": "Крутая",
       "element": "Огонь",
-      "id": 6
-    },
-    {
-      "name": "вывыв",
-      "distription": "dsdasd",
-      "element": "Вода",
-      "id": 7
-    },
-    {
-      "name": "аыва",
-      "distription": "вфыв",
-      "element": "Вода",
-      "id": 8
-    },
-    {
-      "name": "вфыв",
-      "distription": "вфыв",
-      "element": "Вода",
-      "id": 9
-    },
-    {
-      "name": "аыва",
-      "distription": "мчмчс",
-      "element": "Все",
-      "id": 10
-    },
-    {
-      "name": "мв",
-      "distription": "мчс",
-      "element": "Вода",
-      "id": 11
-    },
-    {
-      "name": "мв",
-      "distription": "мчс",
-      "element": "Вода",
-      "id": 12
-    },
-    {
-      "name": "мв",
-      "distription": "мчс",
-      "element": "Вода",
-      "id": 13
+      "id": 5
     }
   ],
   "filters": [
-    "Все",
-    "Огонь",
-    "Вода",
-    "Ветер",
-    "Земля"
-  ]
+    {
+      "name": "Все",
+      "className": "btn btn-outline-dark"
+    },
+    {
+      "name": "Огонь",
+      "className": "btn btn-danger"
+    },
+    {
+      "name": "Вода",
+      "className": "btn btn-primary"
+    },
+    {
+      "name": "Ветер",
+      "className": "btn btn-success"
+    },
+    {
+      "name": "Земля",
+      "className": "btn btn-secondary"
+    }
+  ],
+  "class": []
 }
