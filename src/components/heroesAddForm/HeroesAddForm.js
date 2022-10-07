@@ -115,7 +115,7 @@ const HeroesAddForm = () => {
 
     
     // Создание option
-    const options = useSelector(state=> {
+    const filters = useSelector(state=> {
         return state.filters.map((item)=> {
             return(
                 <option 
@@ -168,7 +168,7 @@ const HeroesAddForm = () => {
                     className="form-select" 
                     id="element" 
                     name="element">
-                    {options}
+                    {filters}
                 </select>
                 <ErrorMessage title= {"element"}/>
             </div>
