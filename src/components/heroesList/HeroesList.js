@@ -15,7 +15,7 @@ import Spinner from '../spinner/Spinner';
 // Удаление идет и с json файла при помощи метода DELETE
 
 const HeroesList = () => {
-    const {heroes, /* filteredHeroes, */ onActiveBTN, heroesLoadingStatus} = useSelector(state => state);
+    const {heroes, onActiveBTN, heroesLoadingStatus} = useSelector(state => state);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
@@ -24,8 +24,10 @@ const HeroesList = () => {
         request("http://localhost:3001/heroes")
             .then(data => dispatch(heroesFetched(data)))
             .catch(() => dispatch(heroesFetchingError()))
+        
 // eslint-disable-next-line
     }, []);
+
 
     if (heroesLoadingStatus === "loading") {
         return <Spinner/>;
@@ -33,16 +35,20 @@ const HeroesList = () => {
         return <h5 className="text-center mt-5">Ошибка загрузки</h5>
     }
 
+    const deleteElementHeroes = (name) =>{
+        dispatch(heroesFetched(heroes.filter(item=> item.name!==name)))
+    }
+
     const renderHeroesList = (arr) => {
         if (arr.length === 0) {
             return <h5 className="text-center mt-5">Героев пока нет</h5>
         }
         return arr.map(({id, ...props}) => {
-            if(onActiveBTN.length === 0) {
-                return <HeroesListItem key={id} {...props}/>
+            if(onActiveBTN.length === 0 || onActiveBTN === "Все") {
+                return <HeroesListItem deleteElementHeroes={deleteElementHeroes}  key={id} {...props}/>
             }
             if(props.element === onActiveBTN && onActiveBTN.length !== 0) {
-                return <HeroesListItem key={id} {...props}/>
+                return <HeroesListItem deleteElementHeroes={deleteElementHeroes} key={id} {...props}/>
             } else {
                 return null
             }            

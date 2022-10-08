@@ -1,6 +1,5 @@
 const initialState = {
     heroes: [],
-    filteredHeroes: [],
     heroesLoadingStatus: 'idle',
     filters: [],    
     onActiveBTN: ""
@@ -32,11 +31,6 @@ const reducer = (state = initialState, action) => {
                 filters: action.payload,
             }
 
-        case 'FILTERED_HEROES_FETCHED':
-            return {
-                ...state,
-                filteredHeroes: action.payload,
-            }
         case "ONACTIVE_BTN": 
         return {
             ...state,

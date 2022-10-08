@@ -17,12 +17,6 @@ export const filterFetched = (filter) => {
         payload: filter
     }
 }
-export const filteredHeroesFetched = (filteredHeroes) => {
-    return {
-        type: 'FILTERED_HEROES_FETCHED',
-        payload: filteredHeroes
-    }
-}
 
 export const heroesFetchingError = () => {
     return {
