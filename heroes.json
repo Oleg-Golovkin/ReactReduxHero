@@ -1,0 +1,75 @@
+{
+  "heroes": [
+    {
+      "id": 1,
+      "name": "Первый герой",
+      "description": "Первый герой в рейтинге!",
+      "element": "Огонь"
+    },
+    {
+      "id": 2,
+      "name": "Неизвестный герой",
+      "description": "Скрывающийся в тени",
+      "element": "Ветер"
+    },
+    {
+      "id": 3,
+      "name": "Морской герой",
+      "description": "Как аквамен, но не из DC",
+      "element": "Вода"
+    },
+    {
+      "name": "Головкин Олег Евгеньевич",
+      "description": "Все умею",
+      "element": "Ветер",
+      "id": 4
+    },
+    {
+      "name": "аыфва",
+      "description": "аыфва",
+      "element": "Вода",
+      "id": 5
+    },
+    {
+      "name": "пывапвап",
+      "description": "пвыап",
+      "element": "Ветер",
+      "id": 6
+    },
+    {
+      "name": "авыа",
+      "description": "афыав",
+      "element": "Огонь",
+      "id": 7
+    },
+    {
+      "name": "афыав",
+      "description": "афыва",
+      "element": "Огонь",
+      "id": 8
+    }
+  ],
+  "filters": [
+    {
+      "name": "Все",
+      "className": "btn btn-outline-dark"
+    },
+    {
+      "name": "Огонь",
+      "className": "btn btn-danger"
+    },
+    {
+      "name": "Вода",
+      "className": "btn btn-primary"
+    },
+    {
+      "name": "Ветер",
+      "className": "btn btn-success"
+    },
+    {
+      "name": "Земля",
+      "className": "btn btn-secondary"
+    }
+  ],
+  "class": []
+}
