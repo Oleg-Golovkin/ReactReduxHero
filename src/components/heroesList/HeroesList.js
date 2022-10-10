@@ -9,6 +9,7 @@ import {
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
+
 // Задача для этого компонента:
 // При клике на "крестик" идет удаление персонажа из общего состояния
 // Усложненная задача:
@@ -40,7 +41,6 @@ const HeroesList = () => {
     }
 
     const renderHeroesList = (arr) => {
-        
         if (arr.length === 0) {
             return <h5 className="text-center mt-5">Героев пока нет</h5>
         }
@@ -55,6 +55,7 @@ const HeroesList = () => {
             }            
         })
     }
+
 
     const elements = renderHeroesList(heroes);
     return (

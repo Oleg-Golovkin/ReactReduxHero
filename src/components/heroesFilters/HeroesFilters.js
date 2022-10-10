@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuidv4 } from 'uuid';
 import { 
     onActiveBTN } from '../../actions';
-
+import {createSelector} from "reselect"
 
 
 const HeroesFilters = () => {
@@ -18,8 +18,11 @@ const HeroesFilters = () => {
 
     const dispatch = useDispatch();
 
-    const filters = useSelector(state => {
-        return state.filters.map(filter=> {
+    
+    // 1. Создаем функцию
+    const filterMemo = createSelector(
+        (state) => state.filters,
+        (filters) => filters.map(filter => {
             const active = filter.name === activeBTN
             const clazzName = active ? "active" : null
             return(
@@ -28,8 +31,10 @@ const HeroesFilters = () => {
                 key={uuidv4()}
                 onClick={()=> dispatch(onActiveBTN(filter.name))}>{filter.name}</button>
             )
-        })            
-    })
+        })  
+    )
+            // 2. Закидываем ее в качестве переменной
+    const filters = useSelector(filterMemo)
 
     return (
         <div className="card shadow-lg mt-4">
