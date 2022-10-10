@@ -12,6 +12,7 @@ import {
     onActiveBTN } from '../../actions';
 
 
+
 const HeroesFilters = () => {
     const activeBTN = useSelector(state=> state.onActiveBTN);
 

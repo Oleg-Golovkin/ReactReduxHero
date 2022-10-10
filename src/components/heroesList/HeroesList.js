@@ -40,6 +40,7 @@ const HeroesList = () => {
     }
 
     const renderHeroesList = (arr) => {
+        
         if (arr.length === 0) {
             return <h5 className="text-center mt-5">Героев пока нет</h5>
         }
