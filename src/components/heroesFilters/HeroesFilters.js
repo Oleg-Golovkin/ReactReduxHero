@@ -19,7 +19,6 @@ const HeroesFilters = () => {
     const dispatch = useDispatch();
 
     
-    // 1. Создаем функцию
     const filterMemo = createSelector(
         (state) => state.filters,
         (filters) => filters.map(filter => {
@@ -33,7 +32,7 @@ const HeroesFilters = () => {
             )
         })  
     )
-            // 2. Закидываем ее в качестве переменной
+
     const filters = useSelector(filterMemo)
 
     return (
