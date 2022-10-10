@@ -5,7 +5,7 @@ const initialState = {
     onActiveBTN: ""
 }
 
-const reducer = (state = initialState, action) => {
+const heroes = (state = initialState, action) => {
     switch (action.type) {
         case 'HEROES_FETCHING':
             return {
@@ -17,8 +17,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 heroes: action.payload,
                 heroesLoadingStatus: 'idle'
-            }
-        
+            }       
         case 'HEROES_FETCHING_ERROR':
             return {
                 ...state,
@@ -40,4 +39,4 @@ const reducer = (state = initialState, action) => {
     }
 }
 
-export default reducer;
+export default heroes;

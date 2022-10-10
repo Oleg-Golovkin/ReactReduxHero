@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import reducer from '../reducers';
+import heroes from '../reducers/heroes';
 
-const store = configureStore({reducer});
+const store = configureStore({heroes});
 
 export default store;
