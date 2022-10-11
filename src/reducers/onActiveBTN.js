@@ -2,7 +2,7 @@ const initialState = {
     onActiveBTN: ""
 }
 
-const reducer = (state = initialState, action) => {
+const onActiveBTN = (state = initialState, action) => {
     switch (action.type) {        
         case "ONACTIVE_BTN": 
         return {
@@ -13,4 +13,4 @@ const reducer = (state = initialState, action) => {
     }
 }
 
-export default reducer;
+export default onActiveBTN;
