@@ -16,10 +16,11 @@ import Spinner from '../spinner/Spinner';
 // Удаление идет и с json файла при помощи метода DELETE
 
 const HeroesList = () => {
-    const {heroes, onActiveBTN, heroesLoadingStatus} = useSelector(state => state);
+    const {heroes, heroesLoadingStatus} = useSelector(state => state.heroes);
+    const {onActiveBTN} = useSelector(state => state.onActiveBTN);
     const dispatch = useDispatch();
     const {request} = useHttp();
-
+    
     useEffect(() => {
         dispatch(heroesFetching());
         request("http://localhost:3001/heroes")

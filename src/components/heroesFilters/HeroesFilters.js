@@ -20,9 +20,8 @@ const HeroesFilters = () => {
 
     
     const filterMemo = createSelector(
-        (state) => state.filters,
+        (state) => state.heroes.filters,
         (filters) => filters.map(filter => {
-            console.log(filters);
             const active = filter.name === activeBTN
             const clazzName = active ? "active" : null
             return(
