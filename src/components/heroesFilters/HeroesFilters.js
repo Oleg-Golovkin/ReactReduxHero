@@ -22,16 +22,19 @@ const HeroesFilters = () => {
     const filterMemo = createSelector(
         (state) => state.heroes.filters,
         (filters) => filters.map(filter => {
-            const active = filter.name === activeBTN
-            const clazzName = active ? "active" : null
-            return(
-                <button 
-                className={filter.className + " " + clazzName}
-                key={uuidv4()}
-                onClick={()=> dispatch(onActiveBTN(filter.name))}>{filter.name}</button>
-            )
-        })  
+                const active = filter.name === activeBTN
+                const clazzName = active ? "active" : null
+                console.log("render");
+                return(
+                    <button 
+                    className={filter.className + " " + clazzName}
+                    key={uuidv4()}
+                    onClick={()=> dispatch(onActiveBTN(filter.name))}>{filter.name}</button>
+                )
+            })  
     )
+
+    
 
     const filters = useSelector(filterMemo)
 
@@ -39,7 +42,8 @@ const HeroesFilters = () => {
         <div className="card shadow-lg mt-4">
             <div className="card-body">
                 <p className="card-text">Отфильтруйте героев по элементам</p>
-                <div className="btn-group">
+                <div onClick= {()=> filters()}
+                className="btn-group">
                     {filters}
                 </div>
             </div>
