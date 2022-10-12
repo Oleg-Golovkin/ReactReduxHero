@@ -14,14 +14,12 @@ import {createSelector} from "reselect"
 
 
 const HeroesFilters = () => {
-    const activeBTN = useSelector(state=> state.onActiveBTN);
+    const dispatch = useDispatch(); 
 
-    const dispatch = useDispatch();
-
-    
     const filterMemo = createSelector(
         (state) => state.heroes.filters,
-        (filters) => filters.map(filter => {
+        (state) => state.activeBTN.activeBTN,
+        (filters, activeBTN) => filters.map(filter => {
                 const active = filter.name === activeBTN
                 const clazzName = active ? "active" : null
                 console.log("render");
@@ -42,7 +40,7 @@ const HeroesFilters = () => {
         <div className="card shadow-lg mt-4">
             <div className="card-body">
                 <p className="card-text">Отфильтруйте героев по элементам</p>
-                <div onClick= {()=> filters()}
+                <div
                 className="btn-group">
                     {filters}
                 </div>

@@ -1,16 +1,16 @@
 const initialState = {    
-    onActiveBTN: ""
+    activeBTN: ""
 }
 
-const onActiveBTN = (state = initialState, action) => {
+const activeBTN = (state = initialState, action) => {
     switch (action.type) {        
         case "ONACTIVE_BTN": 
         return {
             ...state,
-            onActiveBTN: action.payload,
+            activeBTN: action.payload,
         }
         default: return state
     }
 }
 
-export default onActiveBTN;
+export default activeBTN;

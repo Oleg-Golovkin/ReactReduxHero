@@ -17,7 +17,7 @@ import Spinner from '../spinner/Spinner';
 
 const HeroesList = () => {
     const {heroes, heroesLoadingStatus} = useSelector(state => state.heroes);
-    const {onActiveBTN} = useSelector(state => state.onActiveBTN);
+    const {activeBTN} = useSelector(state => state.activeBTN);
     const dispatch = useDispatch();
     const {request} = useHttp();
     
@@ -46,10 +46,10 @@ const HeroesList = () => {
             return <h5 className="text-center mt-5">Героев пока нет</h5>
         }
         return arr.map(({id, ...props}) => {
-            if(onActiveBTN.length === 0 || onActiveBTN === "Все") {
+            if(activeBTN.length === 0 || activeBTN === "Все") {
                 return <HeroesListItem deleteElementHeroes={deleteElementHeroes}  key={id} {...props}/>
             }
-            if(props.element === onActiveBTN && onActiveBTN.length !== 0) {
+            if(props.element === activeBTN && activeBTN.length !== 0) {
                 return <HeroesListItem deleteElementHeroes={deleteElementHeroes} key={id} {...props}/>
             } else {
                 return null

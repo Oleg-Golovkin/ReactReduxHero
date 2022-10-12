@@ -1,10 +1,10 @@
 import heroes from "./heroes";
-import onActiveBTN from "./onActiveBTN";
+import activeBTN from "./activeBTN";
 
 import { combineReducers } from 'redux'
 
 
 export default combineReducers({
     heroes,
-    onActiveBTN
+    activeBTN
 })
