@@ -12,7 +12,7 @@ const enhancers = (configureStore) => (...args) => {
         }
         return oldDispatch(action )
     }
-    return store
+    return store 
 }
 
 const store = configureStore({reducer});
