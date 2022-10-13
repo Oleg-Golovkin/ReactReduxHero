@@ -15,6 +15,6 @@ const enhancers = (configureStore) => (...args) => {
     return store
 }
 
-const store = configureStore({reducer, enhancers});
+const store = configureStore({reducer});
 
 export default store;
