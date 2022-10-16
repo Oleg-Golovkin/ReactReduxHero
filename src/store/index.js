@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { compose } from 'redux';
 import { createStore, applyMiddleware } from 'redux';
 import reducer from '../reducers';
-        //   1.          1.1.          1.2.
+//           1.          1.1.          1.2.
 // const enhancers = (createStore) => (...args) => {
 //                     //  1.3
 //     const store = createStore(...args);
@@ -29,6 +29,6 @@ const newMiddleWare = () => (dispatch) => (action)=>{
     return dispatch(action)
 }
 
-const store = createStore(reducer, applyMiddleware(newMiddleWare));
+const store = configureStore({reducer, middleware: [newMiddleWare]});
 
 export default store;
