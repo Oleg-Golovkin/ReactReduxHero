@@ -65,6 +65,12 @@
       "description": "",
       "element": "",
       "id": 11
+    },
+    {
+      "name": "авыв",
+      "description": "аываы",
+      "element": "Огонь",
+      "id": 12
     }
   ],
   "filters": [
