@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { 
     heroesReduxThunk,
-    heroesFetched} from '../../actions';
+    } from '../../actions';
+import {heroesFetched} from './heroesSlice'
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
@@ -14,6 +15,7 @@ import Spinner from '../spinner/Spinner';
 // Усложненная задача:
 // Удаление идет и с json файла при помощи метода DELETE
 
+// console.log(heroesSlice);
 const HeroesList = () => {
     const {heroes, heroesLoadingStatus} = useSelector(state => state.heroes);
     const {activeBTN} = useSelector(state => state.activeBTN);
@@ -21,11 +23,7 @@ const HeroesList = () => {
     const {request} = useHttp();
     
     useEffect(() => { 
-        dispatch(heroesReduxThunk(request))       
-        // dispatch(heroesFetching);
-        // request("http://localhost:3001/heroes")
-        //     .then(data => dispatch(heroesFetched(data)))
-        //     .catch(() => dispatch(heroesFetchingError()))
+        dispatch(heroesReduxThunk(request))
 // eslint-disable-next-line
     }, []);
 
