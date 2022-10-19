@@ -98,6 +98,7 @@ const HeroesAddForm = () => {
                 let errors = String(...err.errors)
                 setStateErrorMessage({...stateErrorMessage, [title] : errors})
             })
+            console.log(e.target.value);
         }
             
     // Создание option
