@@ -1,5 +1,5 @@
 import heroes from "./heroes";
-import activeBTN from "./activeBTN";
+import activeBTN from "./activeBTNSlice";
 
 import { combineReducers } from 'redux'
 
