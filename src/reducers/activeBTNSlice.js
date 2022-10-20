@@ -14,6 +14,8 @@ const activeBTNSlice = createSlice({
     }
 })
 
+console.log(activeBTNSlice.reducer);
+
 const {actions, reducer} = activeBTNSlice;
 
 export const {onActiveBTN} = actions;

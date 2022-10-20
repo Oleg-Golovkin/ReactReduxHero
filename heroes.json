@@ -35,6 +35,12 @@
       "description": "ам",
       "element": "Вода",
       "id": 6
+    },
+    {
+      "name": "аываыв",
+      "description": "ммчсмч",
+      "element": "Огонь",
+      "id": 7
     }
   ],
   "filters": [
