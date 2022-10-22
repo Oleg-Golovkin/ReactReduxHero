@@ -1,7 +1,7 @@
 import HeroesList from '../heroesList/HeroesList';
 import HeroesAddForm from '../heroesAddForm/HeroesAddForm';
 import HeroesFilters from '../heroesFilters/HeroesFilters';
-import { filterFetched } from '../../actions';
+import { filterFetched } from '../../reducers/filtersSlice';
 import {useDispatch } from "react-redux";
 import { useEffect } from "react";
 import {useHttp} from '../../hooks/http.hook';

@@ -102,8 +102,9 @@ const HeroesAddForm = () => {
         }
             
     // Создание option
-    const filters = useSelector(state=> {
-        return state.heroes.filters.map((item)=> {
+    const filters = useSelector(state => {
+        console.log(state);
+        return state.filtersSlice.filters.map((item)=> {
             return(
                 <option 
                 value={item.name}

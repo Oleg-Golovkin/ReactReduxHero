@@ -41,6 +41,12 @@
       "description": "ммчсмч",
       "element": "Огонь",
       "id": 7
+    },
+    {
+      "name": "ваыа",
+      "description": "аыва",
+      "element": "Земля",
+      "id": 8
     }
   ],
   "filters": [

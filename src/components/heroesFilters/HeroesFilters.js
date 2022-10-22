@@ -17,8 +17,8 @@ const HeroesFilters = () => {
     const dispatch = useDispatch(); 
 
     const filterMemo = createSelector(
-        (state) => state.heroes.filters,
-        (state) => state.activeBTN.activeBTN,
+        (state) => state.filtersSlice.filters,
+        (state) => state.activeBTNSlice.activeBTN,
         (filters, activeBTN) => filters.map(filter => {
                 const active = filter.name === activeBTN
                 const clazzName = active ? "active" : null

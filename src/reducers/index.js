@@ -1,11 +1,12 @@
-import heroes from "./heroes";
-import activeBTN from "./activeBTNSlice";
-
+import heroesSlice from "./heroesSlice";
+import activeBTNSlice from "./activeBTNSlice";
+import filtersSlice from "./filtersSlice";
 import { combineReducers } from 'redux'
 
 
 
 export default combineReducers({
-    heroes,
-    activeBTN
+    heroesSlice,
+    activeBTNSlice,
+    filtersSlice
 })
