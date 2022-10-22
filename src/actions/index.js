@@ -5,4 +5,4 @@ export const heroesReduxThunk = (request) => (dispatch) => {
         request("http://localhost:3001/heroes")
             .then(data => dispatch(heroesFetched(data)))
             .catch(() => dispatch(heroesFetchingError()))
-}
+} 
