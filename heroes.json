@@ -47,6 +47,24 @@
       "description": "аыва",
       "element": "Земля",
       "id": 8
+    },
+    {
+      "name": "мывм",
+      "description": "сывм",
+      "element": "Вода",
+      "id": 9
+    },
+    {
+      "name": "мвымыв",
+      "description": "мымвы",
+      "element": "Ветер",
+      "id": 10
+    },
+    {
+      "name": " чс ",
+      "description": " чс сч",
+      "element": "Ветер",
+      "id": 11
     }
   ],
   "filters": [

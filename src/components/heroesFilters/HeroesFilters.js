@@ -22,7 +22,6 @@ const HeroesFilters = () => {
         (filters, activeBTN) => filters.map(filter => {
                 const active = filter.name === activeBTN
                 const clazzName = active ? "active" : null
-                console.log("render");
                 return(
                     <button 
                     className={filter.className + " " + clazzName}

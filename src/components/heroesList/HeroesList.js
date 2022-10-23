@@ -1,10 +1,9 @@
-import {useHttp} from '../../hooks/http.hook';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { 
-    heroesReduxThunk} from '../../actions';
-import {heroesFetched} from "../../reducers/heroesSlice"
+    heroesFetched} from '../../reducers/heroesSlice';
+import {reduxThunkHeroes} from "../../reducers/heroesSlice"
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
@@ -18,14 +17,9 @@ const HeroesList = () => {
     const {heroes, heroesLoadingStatus} = useSelector(state => state.heroesSlice);
     const {activeBTN} = useSelector(state => state.activeBTNSlice);
     const dispatch = useDispatch();
-    const {request} = useHttp();
     
     useEffect(() => { 
-        dispatch(heroesReduxThunk(request))       
-        // dispatch(heroesFetching);
-        // request("http://localhost:3001/heroes")
-        //     .then(data => dispatch(heroesFetched(data)))
-        //     .catch(() => dispatch(heroesFetchingError()))
+        dispatch(reduxThunkHeroes())
 // eslint-disable-next-line
     }, []);
 
