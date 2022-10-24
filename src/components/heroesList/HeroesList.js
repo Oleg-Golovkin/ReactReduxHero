@@ -21,7 +21,7 @@ const HeroesList = () => {
     useEffect(() => { 
         dispatch(reduxThunkHeroes())
 // eslint-disable-next-line
-    }, []); 
+    }, []);
 
 
     if (heroesLoadingStatus === "loading") {
